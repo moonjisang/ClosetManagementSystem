@@ -1,4 +1,3 @@
-package MenuManager;
 
 public class MenuManager {
 	public static void main(String[] args) {

@@ -40,11 +40,11 @@ public class MenuManager {
 		System.out.print("Clothes name :");
 		String clothesName = input.next();		
 		
-		System.out.print("Email addresse :");
-		String clothesEmail = input.next();
+		System.out.print("Clothes Source :");
+		String clothesSource = input.next();
 		
-		System.out.print("Phone number :");
-		String clothesPhone = input.next();
+		System.out.print("Clothes price :");
+		String clothesPrice = input.next();
 		
 	}
 	public static void deleteClothes() {

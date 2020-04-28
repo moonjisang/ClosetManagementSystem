@@ -13,7 +13,7 @@ public class GenreMusic extends Music {
 	}
 
 	public void printPlaydata() {
+		System.out.println(song1 + " of " + name1);
 		System.out.println(song1 + " of " + name1 + genre);
 	}
-
 }

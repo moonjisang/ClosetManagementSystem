@@ -1,3 +1,4 @@
+package report;
 public class monster {
 	
 	private int hp;

@@ -2,7 +2,7 @@ package clothe;
 
 import java.util.Scanner;
 
-public class Clothe {
+public abstract class Clothe implements ClotheInput {
 	protected ClotheKind kind = ClotheKind.Pants;
 	protected String name;
 	protected int id;
@@ -19,7 +19,6 @@ public class Clothe {
 	public Clothe(String name, int id) {
 		this.name = name;
 		this.id = id;
-
 	}
 
 	public Clothe(String name, int id, String source, String price) {
@@ -77,8 +76,33 @@ public class Clothe {
 		this.price = price;
 	}
 
-
-	public void printInfo() {
+	public abstract void printInfo();
+	
+	public void setClotheID(Scanner input) {
+		System.out.print("Clothe ID :");
+		int id = input.nextInt();
+		this.setId(id);
+	}
+	
+	public void setClotheName(Scanner input) {
+		System.out.print("Clothe name :");
+		String name = input.next();
+		this.setName(name);
+	}
+	
+	public void setClotheSource(Scanner input) {
+		System.out.print("Clothe Source :");
+		String source = input.next();
+		this.setSource(source);
+	}
+	
+	public void setClothePrice(Scanner input) {
+		System.out.print("Clothe price :");
+		String price = input.next();
+		this.setPrice(price);
+	}
+	
+	public String getKindString() {
 		String skind = "none";
 		switch(this.kind) {
 		case Pants:
@@ -94,27 +118,7 @@ public class Clothe {
 			skind = "Ot";
 			break;
 		default:			
-		}		 
-		System.out.println("kind:" + skind + "name: " + name + " id: " + id + " source: " + source + " price: " + price);
-	}
-
-	public void getCloInput(Scanner input) {
-
-		System.out.print("Clothe ID :");
-		int id = input.nextInt();		
-		this.setId(id);
-
-		System.out.print("Clothe name :");
-		String name = input.next();		
-		this.setName(name);
-
-		System.out.print("Clothe Source :");
-		String source = input.next();
-		this.setSource(source);
-
-		System.out.print("Clothe price :");
-		String price = input.next();
-		this.setPrice(price);
+		}		
+		return skind;		
 	}
 }
-

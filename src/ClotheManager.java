@@ -2,12 +2,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import clothe.Clothe;
+import clothe.ClotheInput;
 import clothe.ClotheKind;
 import clothe.OuterClothe;
-import clothe.TShirtClothe;
+import clothe.PantsClothe;
+import clothe.TShirtsClothe;
 
 public class ClotheManager {
-	ArrayList<Clothe> clothes = new ArrayList<Clothe> ();
+	ArrayList<ClotheInput> clothes = new ArrayList<ClotheInput> ();
 	Scanner input;	
 	ClotheManager(Scanner input) {
 		this.input = input;
@@ -15,7 +17,7 @@ public class ClotheManager {
 
 	public void addClothes() {
 		int kind = 0;
-		Clothe clothe;
+		ClotheInput clotheInput;
 		while (kind != 1 && kind !=2) {
 			System.out.println("1 for Pants");
 			System.out.println("2 for TShirts");
@@ -23,21 +25,21 @@ public class ClotheManager {
 			System.out.print("Select num 1, 2, or 3 for Clothe Kind :");
 			kind = input.nextInt();
 			if (kind == 1) {
-				clothe = new Clothe(ClotheKind.Pants);
-				clothe.getCloInput(input);
-				clothes.add(clothe);	
+				clotheInput = new PantsClothe(ClotheKind.Pants);
+				clotheInput.getCloInput(input);
+				clothes.add(clotheInput);	
 				break;
 			}
 			else if (kind == 2) {
-				clothe = new TShirtClothe(ClotheKind.Tshirts);
-				clothe.getCloInput(input);
-				clothes.add(clothe);	
+				clotheInput = new TShirtsClothe(ClotheKind.Tshirts);
+				clotheInput.getCloInput(input);
+				clothes.add(clotheInput);	
 				break;
 			}
 			else if (kind == 3) {
-				clothe = new OuterClothe(ClotheKind.Outer);
-				clothe.getCloInput(input);
-				clothes.add(clothe);	
+				clotheInput = new OuterClothe(ClotheKind.Outer);
+				clotheInput.getCloInput(input);
+				clothes.add(clotheInput);	
 				break;
 			}
 			else {
@@ -49,6 +51,11 @@ public class ClotheManager {
 	public void deleteClothes() {
 		System.out.print("Clothe ID :");
 		int clotheId = input.nextInt();
+		int index = findIndex(clotheId);
+		removefromClothes(index, clotheId);
+	}
+	
+	public int findIndex(int clotheId) {
 		int index = -1;
 		for (int i = 0; i<clothes.size(); i++ ) {
 			if (clothes.get(i).getId() == clotheId) {
@@ -56,69 +63,69 @@ public class ClotheManager {
 				break;
 			}
 		}
-
+		return index;
+	}
+	
+	public int removefromClothes(int index, int clotheId) {
 		if (index >= 0) {
 			clothes.remove(index);
 			System.out.println("the clothe" + clotheId + "is deleted");
+			return 1;
 		}
 		else {
 			System.out.println("the clothe has not been registered");
-			return;
+			return -1;
 		}
 	}
+	
 	public void editClothes() {
 		System.out.print("Clothe ID :");
 		int clotheId = input.nextInt();
 		for (int i = 0; i<clothes.size(); i++ ) {
-			Clothe clothe = clothes.get(i);
+			ClotheInput clothe = clothes.get(i);
 			if (clothe.getId() == clotheId) {
 				int num = -1;
 				while (num != 5) {
-					System.out.println("** Clothe Info Edit Menu **");
-					System.out.println(" 1. Edit Id");
-					System.out.println(" 2. Edit Name");
-					System.out.println(" 3. Edit Source");
-					System.out.println(" 4. Edit Price");
-					System.out.println(" 5. Exit");
-					System.out.println("Select one number between 1 - 6:");
+					showEditMenu();
 					num = input.nextInt();
-					if (num == 1) {
-						System.out.print("Clothe ID :");
-						int id = input.nextInt();
-						clothe.setId(id);
-					}
-					else if (num == 2) {
-						System.out.print("Clothe name :");
-						String name = input.next();
-						clothe.setName(name);
-					}
-					else if (num == 3) {
-						System.out.print("Clothe Source :");
-						String source = input.next();
-						clothe.setSource(source);
-					}
-					else if (num == 4) {
-						System.out.print("Clothe price :");
-						String price = input.next();
-						clothe.setPrice(price);
-					}
-					else {
+					switch(num) {
+					case 1:
+						clothe.setClotheID(input);
+						break;
+					case 2:
+						clothe.setClotheName(input);
+						break;
+					case 3:
+						clothe.setClotheSource(input);
+						break;
+					case 4:
+						clothe.setClothePrice(input);
+						break;
+					default:
 						continue;
-					} //if
+					}
 				} // while
 				break;
 			} // if
 		} // for
-
 	}
+	
 	public void viewClothes() {
-		//		System.out.print("Clothe ID :");
-		//		int clotheId = input.nextInt();
 		System.out.println("# of registered clothes:" + clothes.size());
 		for (int i = 0; i<clothes.size(); i++ ) {
 			clothes.get(i).printInfo();
 		}
-
-
+	}
+	
+		
+	
+	public void showEditMenu() {
+		System.out.println("** Clothe Info Edit Menu **");
+		System.out.println(" 1. Edit Id");
+		System.out.println(" 2. Edit Name");
+		System.out.println(" 3. Edit Source");
+		System.out.println(" 4. Edit Price");
+		System.out.println(" 5. Exit");
+		System.out.println("Select one number between 1 - 6:");
 	}
 }

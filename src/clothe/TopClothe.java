@@ -2,22 +2,22 @@ package clothe;
 
 import java.util.Scanner;
 
-public class TShirtClothe extends Clothe {
+public abstract class TopClothe extends Clothe {
 
-	public TShirtClothe(ClotheKind kind) {
+	public TopClothe(ClotheKind kind) {
 		super(kind);		
 	}
+	
+	@Override
+	public abstract void getCloInput(Scanner input);
 
-
-	public void getCloInput(Scanner input) {
-		System.out.print("Clothe ID :");
-		int id = input.nextInt();		
-		this.setId(id);
-
-		System.out.print("Clothe name :");
-		String name = input.next();		
-		this.setName(name);
-
+	@Override
+	public void printInfo() {
+		String skind = getKindString();
+		System.out.println("kind:" + skind + "name: " + name + " id: " + id + " source: " + source + " price: " + price);
+	}
+	
+	public void setClotheSourcewithYN(Scanner input) {
 		char answer = 'x';
 		while (answer != 'y' && answer != 'Y' && answer != 'n' && answer != 'N') 
 		{
@@ -34,12 +34,8 @@ public class TShirtClothe extends Clothe {
 				break;
 			}
 			else {
-
 			}
 		}
-
-		System.out.print("Clothe price :");
-		String price = input.next();
-		this.setPrice(price);
 	}
+
 }

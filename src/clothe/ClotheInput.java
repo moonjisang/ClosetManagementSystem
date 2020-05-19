@@ -2,6 +2,8 @@ package clothe;
 
 import java.util.Scanner;
 
+import exception.SourceFormatException;
+
 public interface ClotheInput {
 
 	public int getId();
@@ -10,7 +12,7 @@ public interface ClotheInput {
 	
 	public void setName(String name);
 	
-	public void setSource(String source);
+	public void setSource(String source) throws SourceFormatException;
 	
 	public void setPrice(String price);
 	

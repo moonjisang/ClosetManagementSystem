@@ -2,6 +2,8 @@ package clothe;
 
 import java.util.Scanner;
 
+import exception.SourceFormatException;
+
 public abstract class Clothe implements ClotheInput {
 	protected ClotheKind kind = ClotheKind.Pants;
 	protected String name;
@@ -64,7 +66,11 @@ public abstract class Clothe implements ClotheInput {
 		return source;
 	}
 
-	public void setSource(String source) {
+	public void setSource(String source) throws SourceFormatException {
+		if (!source.contains("from") && !source.equals("")) {
+			throw new SourceFormatException();
+		}
+		
 		this.source = source;
 	}
 
@@ -91,9 +97,16 @@ public abstract class Clothe implements ClotheInput {
 	}
 	
 	public void setClotheSource(Scanner input) {
-		System.out.print("Clothe Source :");
-		String source = input.next();
-		this.setSource(source);
+		String source = "";
+		while (!source.contains("from")) {
+			System.out.print("Clothe Source :");
+			source = input.next();
+			try {
+				this.setSource(source);
+			} catch (SourceFormatException e) {
+				System.out.println("Incorrect Source Format. put the source that contains from");
+			}
+		}
 	}
 	
 	public void setClothePrice(Scanner input) {

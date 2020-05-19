@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import clothe.Clothe;
@@ -18,32 +19,41 @@ public class ClotheManager {
 	public void addClothes() {
 		int kind = 0;
 		ClotheInput clotheInput;
-		while (kind != 1 && kind !=2) {
-			System.out.println("1 for Pants");
-			System.out.println("2 for TShirts");
-			System.out.println("3 for Outer");
-			System.out.print("Select num 1, 2, or 3 for Clothe Kind :");
-			kind = input.nextInt();
-			if (kind == 1) {
-				clotheInput = new PantsClothe(ClotheKind.Pants);
-				clotheInput.getCloInput(input);
-				clothes.add(clotheInput);	
-				break;
+		while (kind < 1 || kind > 3) {
+			try {
+				System.out.println("1 for Pants");
+				System.out.println("2 for TShirts");
+				System.out.println("3 for Outer");
+				System.out.print("Select num 1, 2, or 3 for Clothe Kind :");
+				kind = input.nextInt();
+				if (kind == 1) {
+					clotheInput = new PantsClothe(ClotheKind.Pants);
+					clotheInput.getCloInput(input);
+					clothes.add(clotheInput);	
+					break;
+				}
+				else if (kind == 2) {
+					clotheInput = new TShirtsClothe(ClotheKind.Tshirts);
+					clotheInput.getCloInput(input);
+					clothes.add(clotheInput);	
+					break;
+				}
+				else if (kind == 3) {
+					clotheInput = new OuterClothe(ClotheKind.Outer);
+					clotheInput.getCloInput(input);
+					clothes.add(clotheInput);	
+					break;
+				}
+				else {
+					System.out.print("Select num for Clothe Kind between 1 and 2:");
+				}
 			}
-			else if (kind == 2) {
-				clotheInput = new TShirtsClothe(ClotheKind.Tshirts);
-				clotheInput.getCloInput(input);
-				clothes.add(clotheInput);	
-				break;
-			}
-			else if (kind == 3) {
-				clotheInput = new OuterClothe(ClotheKind.Outer);
-				clotheInput.getCloInput(input);
-				clothes.add(clotheInput);	
-				break;
-			}
-			else {
-				System.out.print("Select num for Clothe Kind between 1 and 2:");
+			catch(InputMismatchException e) {
+				System.out.println("Please put an integer between 1 and 3!");
+				if (input.hasNext()) {
+					input.next();
+				}
+				kind = -1;
 			}
 		}	
 	}
@@ -54,7 +64,7 @@ public class ClotheManager {
 		int index = findIndex(clotheId);
 		removefromClothes(index, clotheId);
 	}
-	
+
 	public int findIndex(int clotheId) {
 		int index = -1;
 		for (int i = 0; i<clothes.size(); i++ ) {
@@ -65,7 +75,7 @@ public class ClotheManager {
 		}
 		return index;
 	}
-	
+
 	public int removefromClothes(int index, int clotheId) {
 		if (index >= 0) {
 			clothes.remove(index);
@@ -77,7 +87,7 @@ public class ClotheManager {
 			return -1;
 		}
 	}
-	
+
 	public void editClothes() {
 		System.out.print("Clothe ID :");
 		int clotheId = input.nextInt();
@@ -109,16 +119,16 @@ public class ClotheManager {
 			} // if
 		} // for
 	}
-	
+
 	public void viewClothes() {
 		System.out.println("# of registered clothes:" + clothes.size());
 		for (int i = 0; i<clothes.size(); i++ ) {
 			clothes.get(i).printInfo();
 		}
 	}
-	
-		
-	
+
+
+
 	public void showEditMenu() {
 		System.out.println("** Clothe Info Edit Menu **");
 		System.out.println(" 1. Edit Id");

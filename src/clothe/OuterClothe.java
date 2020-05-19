@@ -2,6 +2,8 @@ package clothe;
 
 import java.util.Scanner;
 
+import exception.SourceFormatException;
+
 public class OuterClothe extends TopClothe {
 
 	protected String approximatesource;
@@ -24,16 +26,21 @@ public class OuterClothe extends TopClothe {
 		while (answer != 'y' && answer != 'Y' && answer != 'n' && answer != 'N') {
 			System.out.print("Do you have a approximately Clothe Source? (Y/N)");
 			answer = input.next().charAt(0);
-			if (answer == 'y' || answer == 'Y') {
-				setClotheSource(input);
-				break;
+			try {
+				if (answer == 'y' || answer == 'Y') {
+					setClotheSource(input);
+					break;
+				}
+				else if (answer == 'n' || answer == 'N') {
+					this.setSource("");
+					break;
+				}
+				else {
+				}
 			}
-			else if (answer == 'n' || answer == 'N') {
-				this.setSource("");
-				break;
-			}
-			else {
-			}
+				catch(SourceFormatException e) {
+					System.out.println("Incorrect Source Format. put the source that contains from");
+				}
 		}
 	}
 

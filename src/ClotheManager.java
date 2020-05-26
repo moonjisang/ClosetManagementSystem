@@ -1,17 +1,22 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import clothe.Clothe;
 import clothe.ClotheInput;
 import clothe.ClotheKind;
 import clothe.OuterClothe;
 import clothe.PantsClothe;
 import clothe.TShirtsClothe;
 
-public class ClotheManager {
+public class ClotheManager implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2655582473225785369L;
+	
 	ArrayList<ClotheInput> clothes = new ArrayList<ClotheInput> ();
-	Scanner input;	
+	transient Scanner input;	
 	ClotheManager(Scanner input) {
 		this.input = input;
 	}

@@ -1,10 +1,16 @@
 package clothe;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 import exception.SourceFormatException;
 
-public abstract class Clothe implements ClotheInput {
+public abstract class Clothe implements ClotheInput, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5600723044841741398L;
+	
 	protected ClotheKind kind = ClotheKind.Pants;
 	protected String name;
 	protected int id;

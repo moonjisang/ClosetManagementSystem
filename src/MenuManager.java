@@ -19,7 +19,6 @@ public class MenuManager {
 			closetManager = new ClotheManager(input);
 		}
 				
-		
 		selectMenu(input, closetManager);
 		putObject(closetManager, "closetmanager.ser");
 	}
